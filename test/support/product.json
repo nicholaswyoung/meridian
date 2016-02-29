@@ -1,0 +1,40 @@
+{
+  "included": [
+    {
+      "type": "category",
+      "links": {
+        "self": "http://localhost:4000/categories/2"
+      },
+      "id": 2,
+      "attributes": {
+        "slug": "fabric",
+        "name": "Fabric"
+      }
+    }
+  ],
+  "jsonapi": {
+    "version": "1.0"
+  },
+  "data": {
+    "type": "product",
+    "relationships": {
+      "category": {
+        "links": {
+          "self": "http://localhost:4000/products/2/relationships/category"
+        },
+        "data": {
+          "type": "category",
+          "id": 2
+        }
+      }
+    },
+    "links": {
+      "self": "http://localhost:4000/products/2"
+    },
+    "id": 2,
+    "attributes": {
+      "slug": "not-your-average-paramiko",
+      "name": "Not Your Average Paramiko"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "included": [
+    {
+      "type": "category",
+      "links": {
+        "self": "http://localhost:4000/categories/2"
+      },
+      "id": 2,
+      "attributes": {
+        "slug": "fabric",
+        "name": "Fabric"
+      }
+    },
+    {
+      "type": "category",
+      "links": {
+        "self": "http://localhost:4000/categories/9"
+      },
+      "id": 9,
+      "attributes": {
+        "slug": "books-dvds",
+        "name": "Books & DVDs"
+      }
+    }
+  ],
+  "jsonapi": {
+    "version": "1.0"
+  },
+  "links": {
+    "self": "http://localhost:4000/products"
+  },
+  "data": [
+    {
+      "type": "product",
+      "relationships": {
+        "category": {
+          "links": {
+            "self": "http://localhost:4000/products/1/relationships/category"
+          },
+          "data": {
+            "type": "category",
+            "id": 9
+          }
+        }
+      },
+      "links": {
+        "self": "http://localhost:4000/products/1"
+      },
+      "id": 1,
+      "attributes": {
+        "slug": "how-to-sew-a-teddy-bear",
+        "name": "How to Sew A Teddy Bear"
+      }
+    },
+    {
+      "type": "product",
+      "relationships": {
+        "category": {
+          "links": {
+            "self": "http://localhost:4000/products/2/relationships/category"
+          },
+          "data": {
+            "type": "category",
+            "id": 2
+          }
+        }
+      },
+      "links": {
+        "self": "http://localhost:4000/products/2"
+      },
+      "id": 2,
+      "attributes": {
+        "slug": "not-your-average-paramiko",
+        "name": "Not Your Average Paramiko"
+      }
+    }
+  ]
+}
