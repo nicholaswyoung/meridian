@@ -38,6 +38,11 @@ export function configureStore(options = {}) {
   }
 
   function find(id, type) {
+    if (typeof id === 'object') {
+      type = id.type;
+      id = id.id;
+    }
+
     const storage = db.sublevel(type);
 
     return new Promise((resolve, reject) => {

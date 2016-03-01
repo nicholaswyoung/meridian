@@ -1,6 +1,7 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
 import remove from 'lodash.remove';
+import find from 'lodash.find';
 
 export default class Model {
   constructor(id, type, payload = {}) {
@@ -40,6 +41,13 @@ export default class Model {
 
     remove(this._relationships, { id: id, type: type });
     return this;
+  }
+
+  load(id, type) {
+    return find(this._relationships, {
+      id: id,
+      type: type
+    });
   }
 
   toJSON() {
