@@ -26,7 +26,7 @@ export default class Model {
   }
   
   get(key) {
-    return get(this._payload, key);
+    return key ? get(this._payload, key) : this._payload;
   }
 
   set(key, value) {

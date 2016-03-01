@@ -37,6 +37,21 @@ test('get() should allow easy access to _payload', t => {
   t.is(record.get('xyz'), undefined);
 });
 
+test('get() without a key returns _payload', t => {
+  const record = new Model(138, 'release', {
+    title: 'Living Things',
+    artist: {
+      name: 'Linkin Park'
+    }
+  });
+
+  t.is(record.get('artist.name'), 'Linkin Park');
+  t.same(record.get(), {
+    title: 'Living Things',
+    artist: { name: 'Linkin Park' }
+  });
+});
+
 test('set() assigns new _payload data', t => {
   const record = new Model(456, 'release', {
     title: 'Nothing Rhymes With Woman'
