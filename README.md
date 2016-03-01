@@ -1,5 +1,7 @@
 # Meridian
 
+![CI Status](https://api.travis-ci.org/UntilNow/meridian.svg?branch=master)
+
 An opinionated, high-level networking and storage toolkit for JavaScript applications.
 
 ## Goals
