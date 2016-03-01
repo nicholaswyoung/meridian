@@ -11,6 +11,26 @@ export default class Model {
     this._relationships = [];
   }
 
+  static isModel(instance) {
+    if (instance.constructor === this) {
+      return true;
+    }
+
+    return false;
+  }
+
+  static toModel({ id, type }) {
+    if (!id) {
+      throw new Error('id parameter is required');
+    }
+
+    if (!type) {
+      throw new Error('type parameter is required.');
+    }
+
+    return { id: id, type: type };
+  }
+
   get id() {
     return this._id;
   }

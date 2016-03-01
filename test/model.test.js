@@ -19,6 +19,30 @@ test('new Model() should have [] relations', t => {
   t.is(record._relationships.length, 0);
 });
 
+test('isModel should correctly detect non-model Objects', t => {
+  const record = new Model(1, 'devices', {
+    product: 'iPhone',
+    version: '6'
+  })
+
+  const err = new Error('Something went wrong.');
+
+  t.true(Model.isModel(record));
+  t.false(Model.isModel(err));
+});
+
+test('toModel should transforms model to relation format', t => {
+  const record = new Model(3, 'phones', {
+    product: 'iPhone',
+    version: 6
+  });
+
+  t.same(Model.toModel(record), {
+    id: 3,
+    type: 'phones'
+  });
+});
+
 test('Model should provide aliases for _members', t => {
   const record = new Model(125, 'category', { data: '02292016' });
 
