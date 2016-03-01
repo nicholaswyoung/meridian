@@ -18,6 +18,10 @@ export default class Model {
     return this._type;
   }
 
+  get relationships() {
+    return this._relationships;
+  }
+
   add(id, type) {
     if (id.constructor === this.constructor) {
       type = id.type;

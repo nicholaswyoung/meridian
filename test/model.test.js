@@ -24,6 +24,7 @@ test('Model should provide aliases for _members', t => {
 
   t.is(record.id, 125);
   t.is(record.type, 'category');
+  t.same(record.relationships, []);
 });
 
 test('get() should allow easy access to _payload', t => {
