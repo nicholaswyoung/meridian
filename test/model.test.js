@@ -66,6 +66,37 @@ test('set() assigns new _payload data', t => {
   t.is(record.get('published.year'), 2009);
 });
 
+test('add() should create a new relationship', t => {
+  const release = new Model(1, 'releases', {
+    title: 'Indian Summer Revisited'
+  });
+
+  const track = new Model(2, 'tracks', {
+    title: 'One Prairie Outpost'
+  });
+
+  release.add(track);
+
+  t.same(release._relationships, [
+    { id: 2, type: 'tracks' }
+  ]);
+});
+
+test('add() should create a new relationship', t => {
+  const release = new Model(1, 'releases', {
+    title: 'Indian Summer Revisited'
+  });
+
+  const track = new Model(2, 'tracks', {
+    title: 'One Prairie Outpost'
+  });
+
+  release.add(track);
+  release.remove({ id: 2, type: 'tracks' });
+
+  t.same(release._relationships, []);
+});
+
 test('toJSON() converts the Model for saving', t => {
   const record = new Model(197, 'track', {
     title: 'Clockwork'
