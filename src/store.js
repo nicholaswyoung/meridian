@@ -6,18 +6,16 @@ import Model from './model';
 export function configureStore(options = {}) {
   let db;
 
-  options = {
-    db: memdown,
-    keyEncoding: 'json',
-    valueEncoding: 'json',
-    ...options
-  };
-
   if (db) {
     return db;
   }
 
-  db = sublevel(levelup(options));
+  db = sublevel(levelup({
+    db: memdown,
+    keyEncoding: 'json',
+    valueEncoding: 'json',
+    ...options
+  }));
 
   function save(model) {
     const {
