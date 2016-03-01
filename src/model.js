@@ -28,8 +28,13 @@ export default class Model {
     return this;
   }
 
-  remove(relationship) {
-    remove(this._relationships, relationship);
+  remove(id, type) {
+    if (id.constructor === this.constructor) {
+      type = id.type;
+      id = id.id;
+    }
+
+    remove(this._relationships, { id: id, type: type });
     return this;
   }
 

@@ -92,7 +92,7 @@ test('add() should create a new relationship', async t => {
   });
 
   release.add(track);
-  release.remove({ id: 2, type: 'tracks' });
+  release.remove(2, 'tracks');
 
   await db.save(release);
   await db.save(track);
