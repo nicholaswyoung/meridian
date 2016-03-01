@@ -51,7 +51,7 @@ test('set() assigns new _payload data', t => {
   t.is(record.get('published.year'), 2009);
 });
 
-test('_document getter converts the Model for saving', t => {
+test('toJSON() converts the Model for saving', t => {
   const record = new Model(197, 'track', {
     title: 'Clockwork'
   });
