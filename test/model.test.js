@@ -82,7 +82,7 @@ test('add() should create a new relationship', t => {
   ]);
 });
 
-test('add() should create a new relationship', t => {
+test('add() should create a new relationship', async t => {
   const release = new Model(1, 'releases', {
     title: 'Indian Summer Revisited'
   });
@@ -93,6 +93,9 @@ test('add() should create a new relationship', t => {
 
   release.add(track);
   release.remove({ id: 2, type: 'tracks' });
+
+  await db.save(release);
+  await db.save(track);
 
   t.same(release._relationships, []);
 });
@@ -105,7 +108,8 @@ test('toJSON() converts the Model for saving', t => {
   t.same(record.toJSON(), {
     id: 197,
     type: 'track',
-    title: 'Clockwork'
+    title: 'Clockwork',
+    relationships: []
   });
 });
 

@@ -37,6 +37,7 @@ export default class Model {
     return {
       id: this._id,
       type: this._type,
+      relationships: this._relationships,
       ...this._payload
     };
   }
