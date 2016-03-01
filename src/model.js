@@ -2,6 +2,7 @@ import get from 'lodash.get';
 import set from 'lodash.set';
 import remove from 'lodash.remove';
 import find from 'lodash.find';
+import findIndex from 'lodash.findindex';
 
 export default class Model {
   constructor(id, type, payload = {}) {
@@ -68,6 +69,24 @@ export default class Model {
       id: id,
       type: type
     });
+  }
+
+  unload(id, type) {
+    if (this.constructor.isModel(id)) {
+      type = id.type;
+      id = id.id;
+    }
+
+    const index = findIndex(this._relationships, {
+      id: id,
+      type: type
+    });
+
+    if (index !== -1) {
+      this._relationships.splice(index, 1);
+    }
+
+    return this;
   }
 
   toJSON() {

@@ -183,6 +183,29 @@ test('load() should return matching relationships', async t => {
   t.is(related.get('title'), 'Paloma');
 });
 
+test('unload() dereferences a given relationship', t => {
+  const release = new Model(1, 'releases', {
+    title: 'Indian Summer Revisited'
+  });
+
+  const track = new Model(2, 'tracks', {
+    title: 'One Prairie Outpost'
+  });
+
+  const track2 = new Model(3, 'tracks', {
+    title: 'Paloma'
+  });
+
+  release.add(track);
+  release.add(track2);
+
+  t.is(release.relationships.length, 2);
+
+  release.unload(track);
+
+  t.is(release.relationships.length, 1);
+});
+
 test('toJSON() converts the Model for saving', t => {
   const record = new Model(197, 'track', {
     title: 'Clockwork'
