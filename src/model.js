@@ -1,5 +1,8 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
+import remove from 'lodash.remove';
+import find from 'lodash.find';
+import findIndex from 'lodash.findindex';
 
 export default class Model {
   constructor(id, type, payload = {}) {
@@ -7,6 +10,26 @@ export default class Model {
     this._type = type;
     this._payload = payload;
     this._relationships = [];
+  }
+
+  static isModel(instance) {
+    if (instance.constructor === this) {
+      return true;
+    }
+
+    return false;
+  }
+
+  static toModel({ id, type }) {
+    if (!id) {
+      throw new Error('id parameter is required');
+    }
+
+    if (!type) {
+      throw new Error('type parameter is required.');
+    }
+
+    return { id: id, type: type };
   }
 
   get id() {
@@ -17,10 +40,60 @@ export default class Model {
     return this._type;
   }
 
+  get relationships() {
+    return this._relationships;
+  }
+
+  add(id, type) {
+    if (id.constructor === this.constructor) {
+      type = id.type;
+      id = id.id;
+    }
+
+    this._relationships.push({ id: id, type: type });
+    return this;
+  }
+
+  remove(id, type) {
+    if (id.constructor === this.constructor) {
+      type = id.type;
+      id = id.id;
+    }
+
+    remove(this._relationships, { id: id, type: type });
+    return this;
+  }
+
+  load(id, type) {
+    return find(this._relationships, {
+      id: id,
+      type: type
+    });
+  }
+
+  unload(id, type) {
+    if (this.constructor.isModel(id)) {
+      type = id.type;
+      id = id.id;
+    }
+
+    const index = findIndex(this._relationships, {
+      id: id,
+      type: type
+    });
+
+    if (index !== -1) {
+      this._relationships.splice(index, 1);
+    }
+
+    return this;
+  }
+
   toJSON() {
     return {
       id: this._id,
       type: this._type,
+      relationships: this._relationships,
       ...this._payload
     };
   }
