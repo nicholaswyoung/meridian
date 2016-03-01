@@ -113,27 +113,3 @@ test('toJSON() converts the Model for saving', t => {
     relationships: []
   });
 });
-
-test('save() should return a valid Model instance', async t => {
-  const record = new Model(587, 'singles', {
-    title: 'Miss Hollywood'
-  });
-
-  const saved = await db.save(record);
-
-  t.true(saved instanceof Model); 
-  t.is(saved.get('title'), 'Miss Hollywood');
-  t.is(saved.get('xyz'), undefined);
-});
-
-test('Model.find() should return existing documents', async t => {
-  const record = new Model(598, 'singles', {
-    title: 'Life Less Ordinary'
-  });
-
-  const saved = await db.save(record);
-  const found = await db.find(598, 'singles');
-
-  t.is(saved.get('title'), found.get('title'));
-  t.is(found.get('xyz'), undefined);
-});
