@@ -93,10 +93,41 @@ test('add() should create a new relationship', async t => {
   });
 
   release.add(track);
-  release.remove(2, 'tracks');
+  release.remove(track);
 
   await db.save(release);
   await db.save(track);
+
+  t.same(release._relationships, []);
+});
+
+test('add() should also receive id, type explicitly', t => {
+  const release = new Model(1, 'releases', {
+    title: 'Indian Summer Revisited'
+  });
+
+  const track = new Model(2, 'tracks', {
+    title: 'One Prairie Outpost'
+  });
+
+  release.add(2, 'tracks');
+  
+  t.same(release._relationships, [{
+    id: 2, type: 'tracks'
+  }]);
+});
+
+test('remove() should also receive id, type explicitly', t => {
+  const release = new Model(1, 'releases', {
+    title: 'Indian Summer Revisited'
+  });
+
+  const track = new Model(2, 'tracks', {
+    title: 'One Prairie Outpost'
+  });
+
+  release.add(track);
+  release.remove(2, 'tracks');
 
   t.same(release._relationships, []);
 });
