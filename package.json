@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
   "scripts": {
-    "test": "ava",
+    "test": "ava test/**/**/*.test.js",
     "build:server": "babel src/ --out-dir lib/",
     "build:client": "browserify src/index.js -o lib/index.js -t [ babelify --presets [ es2015 stage-2 ] ]"
   },
