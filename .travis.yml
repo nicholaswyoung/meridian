@@ -1,4 +1,7 @@
 language: node_js
 node_js:
-  - "stable"
-  - "4.3"
+- stable
+- '4.3'
+notifications:
+  slack:
+    secure: taSOnmUWGQI6vW052Y8INjyBPp3dcbKmc1BOgL5I7xS8411ZCqdNmyE1+EYrt4bjZbAKZRQ+Mx5ofw3bZOf9IgC7yqmaSG3zLFVRWZ5kr6OuS13DfiMujakDKcC+BNe0hbdDrkiYG5uFWg9qPA9EJdZJkcuzmPpGKY2Srr6lWFbVmWeBuqjFB4FBxH5GlDH/RW0auDU7Z6b8SAtA0peJVzfXorCnXJ3XsM1i6rr2kKnQfNq6g8IpdZ9dDf/sL7+aENtz8YgEiGYP3udM5QCpzAd/HcsEgZLXnA1K9Vdj4tM4/lupBdzBRoN8L7RTrM63j6AlGQB/YM5X0S8et3zjcWw2dDJcZv9eu5hve410Lyf2SSqlxJmxp9TIW3O193pAPkMU9V5VEIQCy8JPa5zAJD0dRBMZvjnF8LUhyiceFMwqJmhVooIiSLElq/P6ng+ULWoKVd8N+35k+BOkoBMpHSzwFLEotwNxcwwT7SxIKdLgaJf6c8mP/4lyIuLGh8bCLB1uAFP0Dh81bP5doq5Trrw6nLzawdr0A2gX1VTZ+v0HVZDXRLmjKT97kzyEgcQQi+ES8bUUZth7oIbxSofSIhDUPG4JbcrJe2oukHSjfVWG567/k0cAIegz3pmvNx5mZchAT+T9eDk8e0GYyaeikwZZ8rNBH7Nd+e0D4mkjl6Q=
