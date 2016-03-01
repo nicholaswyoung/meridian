@@ -32,5 +32,4 @@ export default class Model {
   set(key, value) {
     return set(this._payload, key, value);
   }
-
 }
