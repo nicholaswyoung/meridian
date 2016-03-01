@@ -137,4 +137,3 @@ test('Model.find() should return existing documents', async t => {
   t.is(saved.get('title'), found.get('title'));
   t.is(found.get('xyz'), undefined);
 });
-
