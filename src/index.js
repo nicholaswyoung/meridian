@@ -1,9 +1,23 @@
 import { configureStore } from './store';
-import Model from './model';
+import { deserialize } from './serializer';
 
-export const db = configureStore();
+export function setup(options = {}) {
+  const store = configureStore(options);
 
-export function parse(payload = {}) {
-  let result = {};
-  return Promise.resolve(result);
+  function map(resources) {
+    return Promise.all(resources.map(res => {
+      return store.save(res);
+    }));
+  }
+
+  function sync(payload = {}, options = {}) {
+    return deserialize(payload, options).then(resources => {
+      return map(resources);
+    });
+  }
+
+  return {
+    sync: sync,
+    store: store
+  };
 }

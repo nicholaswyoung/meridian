@@ -5,7 +5,7 @@
       "links": {
         "self": "http://localhost:4000/products/2"
       },
-      "id": 2,
+      "id": "2",
       "attributes": {
         "name": "Not Your Average Paramiko"
       }
@@ -19,14 +19,14 @@
           },
           "data": {
             "type": "product",
-            "id": 2
+            "id": "2"
           }
         }
       },
       "links": {
         "self": "http://localhost:4000/cartitems/28"
       },
-      "id": 28,
+      "id": "28",
       "attributes": {
         "quantity": 2
       }
@@ -45,7 +45,7 @@
         "data": [
           {
             "type": "cartitem",
-            "id": 28
+            "id": "28"
           }
         ]
       }
