@@ -17,12 +17,27 @@ the future, expect it to support Websockets and other data transports.
 ## Opinions
 
 Meridian is built on top of reliable technologies, each with a proven track
-record of performance and reliability.
+record of performance and reliability. The project focuses on usability and
+performance equally, but if forced to choose, performance will likely come out
+on top. (If a tool isn't performant, developers will eventually abandon it, or
+won't run tests to properly maintain integrations with it. Hence
+the performance-oriented focus.)
+
+Below are a few paragraphs covering tools that comprise the foundation of the
+project, and why we chose them. Plus, remarks on how development should proceed:
+
+**Universal by Default**
+
+Meridian should run anywhere that JavaScript does. It must execute, without
+deprecation warnings or errors on [Node](http://nodejs.org) v4.x or greater, and
+in any [A Grade Browsers](https://wiki.mozilla.org/Support/Browser_Support), at
+the time of a release.
 
 **JSON:API**
 
 JSON:API is a standard for building APIs in JSON, that aims to reduce
-bikeshedding, and help us get on with the task of writing great software.
+bikeshedding, and help us get on with the task of writing great software. As of
+now, Meridian supports *only* [JSON:API](http://jsonapi.org) compliant APIs.
 
 **LevelUP**
 
@@ -34,6 +49,22 @@ LevelDB, but you'll eventually be able to choose another storage system.
 
 The included HTTP client is based on JavaScript's `fetch` standard, a composable
 system for creating, managing, and executing HTTP requests.
+
+## Contributing
+
+By contributing documentation or code to the project, you agree to be bound by
+the [Contributor Covenant Code of
+Conduct](http://contributor-covenant.org/version/1/4/).
+
+### Guidelines
+
+1. Fork the project, and make your alterations in a feature branch. Do not alter
+   the version, either in code or `package.json`. A member of the core team will
+   handle that.
+   
+2. Submit a pull request, and stick around to polish it if asked.
+
+4. If we decide to merge it, get ready for open source glory!
 
 ## License
 
