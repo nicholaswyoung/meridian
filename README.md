@@ -66,6 +66,11 @@ Conduct](http://contributor-covenant.org/version/1/4/).
 
 4. If we decide to merge it, get ready for open source glory!
 
+## Support
+
+If your project or product relies on Meridian, you should consider purchasing a
+support plan from [Until Now](http://untilnow.co).
+
 ## License
 
 For further detail, see the accompanying `LICENSE` document.
