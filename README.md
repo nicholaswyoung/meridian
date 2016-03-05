@@ -8,6 +8,12 @@ Meridian is currently under heavy development. It has not yet been
 documented, and APIs are subject to change without notice. Use at your own risk,
 but feel free to follow the project and prepare for the impending first release!
 
+## Installation
+
+```
+npm install meridian --save
+```
+
 ## Goals
 
 Meridian aims to make managing API payloads a concern of the past. It loads,
