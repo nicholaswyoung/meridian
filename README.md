@@ -62,16 +62,16 @@ system for creating, managing, and executing HTTP requests.
 
 ## Contributing
 
-By contributing documentation or code to the project, you agree to be bound by
-the [Contributor Covenant Code of
-Conduct](http://contributor-covenant.org/version/1/4/).
+By joining the project a contributor (of documentation or code) or when speaking
+publicly about the project, you agree to be bound by the
+[Code of Conduct](CODE_OF_CONDUCT.md).
 
 ### Guidelines
 
 1. Fork the project, and make your alterations in a feature branch. Do not alter
    the version, either in code or `package.json`. A member of the core team will
    handle that.
-   
+
 2. Submit a pull request, and stick around to polish it if asked.
 
 4. If we decide to merge it, get ready for open source glory!
