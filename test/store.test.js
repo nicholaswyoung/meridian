@@ -1,6 +1,6 @@
 import test from 'ava';
 import { configureStore } from '../src/store';
-import Model from '../src/model';
+import Resource from '../src/resource';
 
 const db = configureStore();
 
@@ -17,8 +17,8 @@ test('configureStore() should expose save, find', t => {
   t.is(typeof db.find, 'function');
 });
 
-test('save() should receive a Model, serialize and save', async t => {
-  const record = new Model(678, 'product', {
+test('save() should receive a Resource, serialize and save', async t => {
+  const record = new Resource(678, 'product', {
     data: { title: 'Steiff Teddy Bear' }
   });
 
@@ -28,7 +28,7 @@ test('save() should receive a Model, serialize and save', async t => {
 });
 
 test('find() should retrieve existing documents', async t => {
-    const record = new Model(78, 'product', {
+    const record = new Resource(78, 'product', {
       data: { title: 'Steiff Teddy Bear' }
     });
 
@@ -41,8 +41,8 @@ test('find() should retrieve existing documents', async t => {
     t.same(result.title, saved.title);
 });
 
-test('Model.find() should return existing documents', async t => {
-  const record = new Model(598, 'singles', {
+test('Resource.find() should return existing documents', async t => {
+  const record = new Resource(598, 'singles', {
     title: 'Life Less Ordinary'
   });
 
@@ -73,14 +73,14 @@ test('find() with undefined id or type returns undefined', async t => {
   }
 });
 
-test('save() should return a valid Model instance', async t => {
-  const record = new Model(587, 'singles', {
+test('save() should return a valid Resource instance', async t => {
+  const record = new Resource(587, 'singles', {
     title: 'Miss Hollywood'
   });
 
   const saved = await db.save(record);
 
-  t.true(saved instanceof Model); 
+  t.true(saved instanceof Resource);
   t.is(saved.get('title'), 'Miss Hollywood');
   t.is(saved.get('xyz'), undefined);
 });

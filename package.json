@@ -34,7 +34,8 @@
     "lodash.get": "^4.1.2",
     "lodash.remove": "^4.2.0",
     "lodash.set": "^4.0.0",
-    "memdown": "^1.1.2"
+    "memdown": "^1.1.2",
+    "tv4": "^1.2.7"
   },
   "devDependencies": {
     "ava": "^0.12.0",

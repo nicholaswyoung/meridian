@@ -1,7 +1,7 @@
 import levelup from 'levelup';
 import sublevel from 'level-sublevel';
 import memdown from 'memdown';
-import Model from './model';
+import Resource from './resource';
 
 export function configureStore(options = {}) {
   let db;
@@ -17,22 +17,22 @@ export function configureStore(options = {}) {
     ...options
   }));
 
-  function save(model) {
+  function save(resource) {
     const {
       id,
       type,
       ...attributes
-    } = model;
+    } = resource;
 
     const storage = db.sublevel(type);
 
     return new Promise((resolve, reject) => {
-      storage.put(id, model.toJSON(), err => {
+      storage.put(id, resource.toJSON(), err => {
         if (err) {
           return reject(err);
         }
 
-        resolve(model);
+        resolve(resource);
       });
     });
   }
@@ -57,7 +57,7 @@ export function configureStore(options = {}) {
           ...attributes
         } = value;
 
-        resolve(new Model(id, type, attributes));
+        resolve(new Resource(id, type, attributes));
       });
     });
   }

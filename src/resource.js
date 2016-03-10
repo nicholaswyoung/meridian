@@ -4,7 +4,7 @@ import remove from 'lodash.remove';
 import find from 'lodash.find';
 import findIndex from 'lodash.findindex';
 
-export default class Model {
+export default class Resource {
   constructor(id, type, payload = {}) {
     this._id = id;
     this._type = type;
@@ -12,7 +12,7 @@ export default class Model {
     this._relationships = [];
   }
 
-  static isModel(instance) {
+  static isResource(instance) {
     if (instance.constructor === this) {
       return true;
     }
@@ -20,7 +20,7 @@ export default class Model {
     return false;
   }
 
-  static toModel({ id, type }) {
+  static toResource({ id, type }) {
     if (!id) {
       throw new Error('id parameter is required');
     }
@@ -72,7 +72,7 @@ export default class Model {
   }
 
   unload(id, type) {
-    if (this.constructor.isModel(id)) {
+    if (this.constructor.isResource(id)) {
       type = id.type;
       id = id.id;
     }

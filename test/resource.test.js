@@ -1,50 +1,56 @@
 import test from 'ava';
 import { configureStore } from '../src/store';
-import Model from '../src/model';
+import Resource from '../src/resource';
 
 const db = configureStore();
 
-test('new Model() should store _id, _type, _payload', t => {
-  const record = new Model(124, 'product', { data: 'xyz' });
+test('new Resource() should store _id, _type, _payload', t => {
+  const record = new Resource(124, 'product', { data: 'xyz' });
 
   t.is(record._id, 124);
   t.is(record._type, 'product');
   t.same(record._payload, { data: 'xyz' });
 });
 
-test('new Model() should have [] relations', t => {
-  const record = new Model();
+test('new Resource() should accept id as String, too', t => {
+  const record = new Resource('124', 'product', { data: '123' });
+
+  t.same(record._id, '124');
+});
+
+test('new Resource() should have [] relations', t => {
+  const record = new Resource();
 
   t.is(Array.isArray(record._relationships), true);
   t.is(record._relationships.length, 0);
 });
 
-test('isModel should correctly detect non-model Objects', t => {
-  const record = new Model(1, 'devices', {
+test('isResource should correctly detect non-model Objects', t => {
+  const record = new Resource(1, 'devices', {
     product: 'iPhone',
     version: '6'
   })
 
   const err = new Error('Something went wrong.');
 
-  t.true(Model.isModel(record));
-  t.false(Model.isModel(err));
+  t.true(Resource.isResource(record));
+  t.false(Resource.isResource(err));
 });
 
-test('toModel should transforms model to relation format', t => {
-  const record = new Model(3, 'phones', {
+test('toResource should transforms model to relation format', t => {
+  const record = new Resource(3, 'phones', {
     product: 'iPhone',
     version: 6
   });
 
-  t.same(Model.toModel(record), {
+  t.same(Resource.toResource(record), {
     id: 3,
     type: 'phones'
   });
 });
 
-test('Model should provide aliases for _members', t => {
-  const record = new Model(125, 'category', { data: '02292016' });
+test('Resource should provide aliases for _members', t => {
+  const record = new Resource(125, 'category', { data: '02292016' });
 
   t.is(record.id, 125);
   t.is(record.type, 'category');
@@ -52,7 +58,7 @@ test('Model should provide aliases for _members', t => {
 });
 
 test('get() should allow easy access to _payload', t => {
-  const record = new Model(123, 'release', {
+  const record = new Resource(123, 'release', {
     title: 'Meander',
     published: { year: 1995 }
   });
@@ -63,7 +69,7 @@ test('get() should allow easy access to _payload', t => {
 });
 
 test('get() without a key returns _payload', t => {
-  const record = new Model(138, 'release', {
+  const record = new Resource(138, 'release', {
     title: 'Living Things',
     artist: {
       name: 'Linkin Park'
@@ -78,7 +84,7 @@ test('get() without a key returns _payload', t => {
 });
 
 test('set() assigns new _payload data', t => {
-  const record = new Model(456, 'release', {
+  const record = new Resource(456, 'release', {
     title: 'Nothing Rhymes With Woman'
   });
 
@@ -92,11 +98,11 @@ test('set() assigns new _payload data', t => {
 });
 
 test('add() should create a new relationship', t => {
-  const release = new Model(1, 'releases', {
+  const release = new Resource(1, 'releases', {
     title: 'Indian Summer Revisited'
   });
 
-  const track = new Model(2, 'tracks', {
+  const track = new Resource(2, 'tracks', {
     title: 'One Prairie Outpost'
   });
 
@@ -108,11 +114,11 @@ test('add() should create a new relationship', t => {
 });
 
 test('add() should create a new relationship', async t => {
-  const release = new Model(1, 'releases', {
+  const release = new Resource(1, 'releases', {
     title: 'Indian Summer Revisited'
   });
 
-  const track = new Model(2, 'tracks', {
+  const track = new Resource(2, 'tracks', {
     title: 'One Prairie Outpost'
   });
 
@@ -126,11 +132,11 @@ test('add() should create a new relationship', async t => {
 });
 
 test('add() should also receive id, type explicitly', t => {
-  const release = new Model(1, 'releases', {
+  const release = new Resource(1, 'releases', {
     title: 'Indian Summer Revisited'
   });
 
-  const track = new Model(2, 'tracks', {
+  const track = new Resource(2, 'tracks', {
     title: 'One Prairie Outpost'
   });
 
@@ -142,11 +148,11 @@ test('add() should also receive id, type explicitly', t => {
 });
 
 test('remove() should also receive id, type explicitly', t => {
-  const release = new Model(1, 'releases', {
+  const release = new Resource(1, 'releases', {
     title: 'Indian Summer Revisited'
   });
 
-  const track = new Model(2, 'tracks', {
+  const track = new Resource(2, 'tracks', {
     title: 'One Prairie Outpost'
   });
 
@@ -157,15 +163,15 @@ test('remove() should also receive id, type explicitly', t => {
 });
 
 test('load() should return matching relationships', async t => {
-  const release = new Model(1, 'releases', {
+  const release = new Resource(1, 'releases', {
     title: 'Indian Summer Revisited'
   });
 
-  const track = new Model(2, 'tracks', {
+  const track = new Resource(2, 'tracks', {
     title: 'One Prairie Outpost'
   });
 
-  const track2 = new Model(3, 'tracks', {
+  const track2 = new Resource(3, 'tracks', {
     title: 'Paloma'
   });
 
@@ -184,15 +190,15 @@ test('load() should return matching relationships', async t => {
 });
 
 test('unload() dereferences a given relationship', t => {
-  const release = new Model(1, 'releases', {
+  const release = new Resource(1, 'releases', {
     title: 'Indian Summer Revisited'
   });
 
-  const track = new Model(2, 'tracks', {
+  const track = new Resource(2, 'tracks', {
     title: 'One Prairie Outpost'
   });
 
-  const track2 = new Model(3, 'tracks', {
+  const track2 = new Resource(3, 'tracks', {
     title: 'Paloma'
   });
 
@@ -206,8 +212,8 @@ test('unload() dereferences a given relationship', t => {
   t.is(release.relationships.length, 1);
 });
 
-test('toJSON() converts the Model for saving', t => {
-  const record = new Model(197, 'track', {
+test('toJSON() converts the Resource for saving', t => {
+  const record = new Resource(197, 'track', {
     title: 'Clockwork'
   });
 
