@@ -10,3 +10,10 @@ test('sync()', async t => {
   
   t.is(Object.keys(result).length, 2);
 });
+
+test('sync() with existing record handles refresh', async t => {
+  const multi  = await client.sync(products);
+  const single = await client.sync(product);
+
+  t.not(single.products[0].refreshed_at, undefined);
+});

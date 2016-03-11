@@ -5,12 +5,12 @@ import find from 'lodash.find';
 import findIndex from 'lodash.findindex';
 
 export default class Resource {
-  constructor(id, type, payload = {}) {
+  constructor(id, type, payload = {}, meta = {}) {
     this._id = id;
     this._type = type;
     this._payload = payload;
     this._relationships = [];
-    this._refreshed_at = undefined;
+    this._refreshed_at = meta.refreshed_at || undefined;
   }
 
   static isResource(instance) {

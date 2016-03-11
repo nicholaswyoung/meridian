@@ -55,10 +55,15 @@ export function configureStore(options = {}) {
         const {
           id,
           type,
+          refreshed_at,
           ...attributes
         } = value;
 
-        resolve(new Resource(id, type, attributes));
+        const record = new Resource(id, type, attributes, {
+          refreshed_at: refreshed_at
+        });
+
+        resolve(record);
       });
     });
   }

@@ -14,10 +14,16 @@ export function setup(options = {}) {
   const store  = configureStore(options.store);
   const client = configureClient(options.client);
 
+  function handle(resource) {
+    return store.find(resource).then(res => {
+      return res;
+    }).catch(() => {
+      return store.save(resource);
+    });
+  }
+
   function map(resources) {
-    return Promise.all(resources.map(res => {
-      return store.save(res);
-    }));
+    return Promise.all(resources.map(handle));
   }
 
   function sync(endpoint, options = {}) {
