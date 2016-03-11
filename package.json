@@ -4,11 +4,12 @@
   "description": "a fast, efficient, JSON:API parser for JavaScript.",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
+  "browser": "lib/client.js",
   "scripts": {
     "test": "ava test/**/**/*.test.js",
     "prebuild:client": "mkdirp lib/",
     "build:server": "babel src/ --out-dir lib/",
-    "build:client": "browserify src/index.js -o lib/index.js -t [ babelify --presets [ es2015 stage-2 ] ]"
+    "build:client": "browserify src/index.js -o lib/client.js -t [ babelify --presets [ es2015 stage-2 ] ]"
   },
   "repository": {
     "type": "git",
