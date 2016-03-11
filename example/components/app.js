@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { loadProducts } from '../actions';
+import List from './list';
 
 class App extends Component {
   render() {
@@ -16,15 +17,7 @@ class App extends Component {
         <button onClick={loadProducts}>
           Load
         </button>
-        <ul>
-          {products.map(product => {
-            return(
-              <li key={product.id}>
-                {product.get('attributes.name')}
-              </li>
-            );
-          })}
-        </ul>
+        <List products={products} />
       </div>
     );
   }
