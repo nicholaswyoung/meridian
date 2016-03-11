@@ -9,4 +9,5 @@
 *.tar.gz
 node_modules/
 lib/
+example/node_modules/
 example/public/app.js
