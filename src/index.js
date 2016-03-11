@@ -20,24 +20,28 @@ export function setup(options = {}) {
     }));
   }
 
-  function sync(endpoint, options) {
-    return request(endpoint).then(payload => {
-      return deserialize(payload, options);
+  function sync(endpoint, options = {}) {
+    const chain = (...args) => {
+      return deserialize(...args).then(map).then(render);
+    }
+
+    if (typeof endpoint === 'object') {
+      return chain(endpoint, options);
+    }
+
+    return request(endpoint, options).then(payload => {
+      return chain(payload, options);
     }).then(map).then(render);
   }
 
-  function render(resources, property = 'type') {
+  function render(resources) {
     return groupby(resources, resource => {
       return pluralize(resource.type);
     });
   }
 
-  function request(endpoint) {
-    if (typeof endpoint === 'object') {
-      return Promise.resolve(endpoint);
-    }
-
-    return client(endpoint).then(response => {
+  function request(endpoint, options) {
+    return client(endpoint, options).then(response => {
       if (!response.ok) {
         throw new Error(response);
       }
