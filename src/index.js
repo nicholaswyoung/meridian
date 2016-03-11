@@ -58,6 +58,7 @@ export function setup(options = {}) {
 
   return {
     sync: sync,
-    store: store
+    store: store,
+    client: client
   };
 }
