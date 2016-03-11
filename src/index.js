@@ -33,6 +33,10 @@ export function setup(options = {}) {
   }
 
   function request(endpoint) {
+    if (typeof endpoint === 'object') {
+      return Promise.resolve(endpoint);
+    }
+
     return client(endpoint).then(response => {
       if (!response.ok) {
         throw new Error(response);

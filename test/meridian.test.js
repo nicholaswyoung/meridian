@@ -6,4 +6,7 @@ import products from './fixtures/products';
 const client = setup();
 
 test('sync()', async t => {
+  const result = await client.sync(products);
+  
+  t.is(Object.keys(result).length, 2);
 });
