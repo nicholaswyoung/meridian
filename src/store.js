@@ -27,6 +27,7 @@ export function configureStore(options = {}) {
     const storage = db.sublevel(type);
 
     return new Promise((resolve, reject) => {
+      resource.refresh();
       storage.put(id, resource.toJSON(), err => {
         if (err) {
           return reject(err);

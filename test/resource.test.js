@@ -221,6 +221,7 @@ test('toJSON() converts the Resource for saving', t => {
     id: 197,
     type: 'track',
     title: 'Clockwork',
-    relationships: []
+    relationships: [],
+    refreshed_at: undefined
   });
 });

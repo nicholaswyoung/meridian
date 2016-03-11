@@ -27,13 +27,26 @@ test('save() should receive a Resource, serialize and save', async t => {
   t.same(saved, record);
 });
 
+test('save() should populate `_refreshed_at`', async t => {
+  const record = new Resource(678, 'product', {
+    data: { title: 'Steiff Teddy Bear' }
+  });
+
+  t.is(typeof record._refreshed_at, 'undefined');
+
+  const saved = await db.save(record);
+
+  t.not(typeof record._refreshed_at, 'undefined');
+  t.same(saved, record);
+});
+
 test('find() should retrieve existing documents', async t => {
     const record = new Resource(78, 'product', {
       data: { title: 'Steiff Teddy Bear' }
     });
 
     const saved = await db.save(record);
-
+    
     t.same(saved, record);
 
     const result = await db.find(saved.id, saved.type);

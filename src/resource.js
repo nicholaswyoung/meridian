@@ -10,6 +10,7 @@ export default class Resource {
     this._type = type;
     this._payload = payload;
     this._relationships = [];
+    this._refreshed_at = undefined;
   }
 
   static isResource(instance) {
@@ -40,8 +41,16 @@ export default class Resource {
     return this._type;
   }
 
+  get refreshed_at() {
+    return this._refreshed_at = new Date();
+  }
+
   get relationships() {
     return this._relationships;
+  }
+
+  refresh() {
+    this._refreshed_at = new Date();
   }
 
   add(id, type) {
@@ -94,6 +103,7 @@ export default class Resource {
       id: this._id,
       type: this._type,
       relationships: this._relationships,
+      refreshed_at: this._refreshed_at,
       ...this._payload
     };
   }
