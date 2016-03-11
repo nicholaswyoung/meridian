@@ -14,6 +14,7 @@ export function configureClient(options = {}) {
   }
 
   options = {
+    base: '//',
     headers: {
       accept: 'application/vnd.api+json',
       type: 'application/vnd.api+json',
