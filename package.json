@@ -7,6 +7,7 @@
   "browser": "lib/client.js",
   "scripts": {
     "test": "ava test/**/**/*.test.js",
+    "clean": "trash lib/",
     "prebuild:client": "mkdirp lib/",
     "build:server": "babel src/ --out-dir lib/",
     "build:client": "browserify src/index.js -o lib/client.js -t [ babelify --presets [ es2015 stage-2 ] ]"
@@ -53,7 +54,8 @@
     "express": "^4.13.4",
     "minifyify": "^7.3.2",
     "mkdirp": "^0.5.1",
-    "onchange": "^2.0.0"
+    "onchange": "^2.0.0",
+    "trash-cli": "^1.2.1"
   },
   "ava": {
     "require": [
