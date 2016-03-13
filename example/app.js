@@ -1,6 +1,8 @@
 const express = require('express');
+const logger = require('morgan');
 const app = express();
 
+app.use(logger('combined'));
 app.use(express.static('public'));
 app.use(express.static('../test/fixtures'));
 
