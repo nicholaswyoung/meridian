@@ -47,18 +47,18 @@ export function setup(options = {}) {
     };
 
     const client   = find(clients, { key: locals.client });
-    const dispatch = client.callback(locals);
+    const dispatch = client.callback({ ...locals, ...req });
 
     const chain = (...args) => {
       return deserialize(...args).then(map).then(render);
     }
 
-    if (typeof req === 'object' && client.canActivate(options)) {
+    if (locals.raw) {
       return chain(req, options);
     }
 
-    return dispatch(locals).then(payload => {
-      return chain(payload, options);
+    return dispatch(req).then(payload => {
+      return chain(payload, locals);
     });
   }
 

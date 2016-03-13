@@ -8,10 +8,16 @@ const client = setup({
 });
 
 test('sync()', async t => {
-  const result = await client.sync(products);
+  const result = await client.sync(products, { raw: true });
 });
 
 test('sync() with existing record handles refresh', async t => {
-  const multi  = await client.sync(products);
-  const single = await client.sync(product);
+  const multi  = await client.sync(products, { raw: true });
+  const single = await client.sync(product, { raw: true });
+});
+
+test('sync() http', async t => {
+  const result = await client.sync({
+    endpoint: '/products.json'
+  });
 });
