@@ -13,4 +13,5 @@ app.get('/401', (req, res) => {
   res.status(401).send({ errors: ['unauthorized req'] });
 });
 
-export default app;
+module.exports = app;
+
