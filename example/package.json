@@ -6,7 +6,7 @@
   "main": "app.js",
   "scripts": {
     "js": "watchify client.js -o public/app.js -t [ babelify ]",
-    "start": "npm run js & node app.js"
+    "start": "npm run js & node server.js"
   },
   "author": "Nicholas Young <nicholas@nicholaswyoung.com>",
   "license": "BSD-3-Clause",
