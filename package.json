@@ -1,7 +1,7 @@
 {
   "name": "meridian",
   "version": "1.0.0-rc.1",
-  "description": "a fast, efficient, JSON:API parser for JavaScript.",
+  "description": "Data management made simple, for JavaScript applications.",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
   "browser": "lib/browser.js",
