@@ -2,12 +2,15 @@ const express = require('express');
 const logger = require('morgan');
 const app = express();
 
-app.use(logger('combined'));
+if (process.env.NODE_ENV && process.env.NODE_ENV !== 'test') {
+  app.use(logger('combined'));
+}
+
 app.use(express.static('public'));
 app.use(express.static('../test/fixtures'));
 
-app.listen(process.env.PORT || 4000);
+app.get('/401', (req, res) => {
+  res.status(401).send({ errors: ['unauthorized req'] });
+});
 
-process.stdout.write(
-  `Meridian example now listening on ${process.env.PORT || 4000}`
-);
+export default app;
