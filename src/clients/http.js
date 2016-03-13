@@ -21,7 +21,7 @@ export default function httpClient(options = {}) {
 
   const request = createFetch(
     base(options.base),
-    method(options.method),
+    method(mapAction(options)),
     header('Content-Type', options.type),
     header('Accept', options.type),
     parseJSON(options.field)
@@ -36,6 +36,23 @@ export default function httpClient(options = {}) {
 export function pick(field = 'jsonData') {
   return response => response[field];
 } 
+
+export function mapAction({ method }) {
+  switch (method) {
+    case 'create':
+      return 'post';
+    case 'update':
+      return 'patch';
+    case 'delete':
+      return 'delete';
+    case 'remove':
+      return 'delete';
+    case 'destroy':
+      return 'delete';
+    default:
+      return 'get';
+  }
+}
 
 export function canActivate(options = {}) {
   if (options.base) { return true; }
