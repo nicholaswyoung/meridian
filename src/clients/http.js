@@ -6,31 +6,28 @@ import {
   parseJSON
 } from 'http-client';
 
-export function configureClient(options = {}) {
-  if (typeof options === 'string') {
-    options = {
-      base: options
-    };
+export default function httpClient(options = {}) {
+  if (!canActivate(options)) {
+    return Promise.reject(new Error('invalid client options.'));
   }
 
   options = {
-    base: '//',
-    headers: {
-      accept: 'application/vnd.api+json',
-      type: 'application/vnd.api+json',
-    },
-    body: {},
-    method: 'GET',
+    method: 'get',
+    type: 'application/vnd.api+json',
+    field: 'jsonData',
     ...options
   };
-
-  options.method = options.method.toUpperCase();
 
   return createFetch(
     base(options.base),
     method(options.method),
-    header('Accept', options.headers.accept),
-    header('Content-Type', options.headers.type),
-    parseJSON('jsonData')
-  );
+    header('Content-Type', options.type),
+    header('Accept', options.type),
+    parseJSON(options.field)
+  ); 
+}
+
+export function canActivate(options = {}) {
+  if (options.base) { return true; }
+  return false;
 }

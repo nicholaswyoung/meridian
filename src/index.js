@@ -1,19 +1,26 @@
+import find from 'lodash.find';
 import groupby from 'lodash.groupby';
 import pluralize from 'pluralize';
 import { configureStore } from './store';
-import { configureClient } from './clients/http';
+import httpClient, { canActivate } from './clients/http';
 import { deserialize } from './serializer';
 
 export function setup(options = {}) {
   options = {
-    store: {},
-    client: {},
+    clients: [],
     ...options
   };
 
-  const store  = configureStore(options.store);
-  const client = configureClient(options.client);
-
+  if (!options.clients.length) {
+    options.clients.push({
+      key: 'http',
+      callback: httpClient,
+      canActivate: canActivate
+    });
+  }
+  const { clients, ...globs } = options;
+  const store = configureStore(globs);
+  
   function handle(resource) {
     return store.find(resource).then(res => {
       return res;
@@ -26,39 +33,37 @@ export function setup(options = {}) {
     return Promise.all(resources.map(handle));
   }
 
-  function sync(endpoint, options = {}) {
-    const chain = (...args) => {
-      return deserialize(...args).then(map).then(render);
-    }
-
-    if (typeof endpoint === 'object') {
-      return chain(endpoint, options);
-    }
-
-    return request(endpoint, options).then(payload => {
-      return chain(payload, options);
-    }).then(map).then(render);
-  }
-
   function render(resources) {
     return groupby(resources, resource => {
       return pluralize(resource.type);
     });
   }
 
-  function request(endpoint, options) {
-    return client(endpoint, options).then(response => {
-      if (!response.ok) {
-        throw new Error(response);
-      }
+  function sync(req, locals = {}) {
+    locals = {
+      client: 'http',
+      ...globs,
+      ...locals
+    };
 
-      return response.jsonData;
+    const client   = find(clients, { key: locals.client });
+    const dispatch = client.callback(locals);
+
+    const chain = (...args) => {
+      return deserialize(...args).then(map).then(render);
+    }
+
+    if (typeof req === 'object' && client.canActivate(options)) {
+      return chain(req, options);
+    }
+
+    return dispatch(locals).then(payload => {
+      return chain(payload, options);
     });
   }
 
   return {
     sync: sync,
-    store: store,
-    client: client
+    store: store
   };
 }
