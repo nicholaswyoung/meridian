@@ -42,6 +42,7 @@ export function setup(options = {}) {
   function sync(req, locals = {}) {
     locals = {
       client: 'http',
+      raw: false,
       ...globs,
       ...locals
     };
