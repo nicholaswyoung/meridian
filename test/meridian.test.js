@@ -2,9 +2,9 @@ import test from 'ava';
 import { setup } from '../src';
 import product from './fixtures/product';
 import products from './fixtures/products';
-import app from '../example/app';
+import server from './support/server';
 
-app.listen(4000);
+server.listen(4000);
 
 const client = setup({
   base: 'http://localhost:4000'
