@@ -2,12 +2,19 @@ import find from 'lodash.find';
 import { isResource } from './matcher';
 import Resource from './resource';
 
+export function serialize(payload = {}, options = {}) {
+  return JSON.stringify({
+    data: payload
+  });
+}
+
 export function deserialize(payload = {}, options = {}) {
   return new Promise((resolve, reject) => {
     let {
       errors,
       included,
-      data
+      data,
+      meta
     } = payload;
 
     if (errors) {
