@@ -6,7 +6,7 @@
   "jsnext:main": "src/index.js",
   "browser": "lib/browser.js",
   "scripts": {
-    "test": "ava test/**/**/*.test.js",
+    "test": "NODE_ENV=test ava test/**/**/*.test.js",
     "clean": "trash lib/",
     "prebuild:client": "mkdirp lib/",
     "build:server": "babel src/ --out-dir lib/",
