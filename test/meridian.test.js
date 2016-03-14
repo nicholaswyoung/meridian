@@ -63,3 +63,32 @@ test('sync() with unauthorized endpoint', async t => {
     t.same(err, ['unauthorized req']);
   }
 });
+
+test('sync() with create', async t => {
+  const result = await client.sync({
+    endpoint: '/products',
+    method: 'create',
+    payload: {
+      id: '1',
+      type: 'phone',
+      name: 'iPhone 6'
+    }
+  });
+});
+
+test('sync() with update', async t => {
+  const result = await client.sync({
+    endpoint: '/products/2',
+    method: 'update',
+    payload: {
+      name: 'Steiff Teddy Bear'
+    }
+  });
+});
+
+test('sync() with delete', async t => {
+  const result = await client.sync({
+    endpoint: '/products/2',
+    method: 'delete'
+  });
+});

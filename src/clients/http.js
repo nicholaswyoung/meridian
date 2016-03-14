@@ -1,10 +1,13 @@
 import {
+  createStack,
   createFetch,
   base,
   method,
   header,
-  parseJSON
+  parseJSON,
+  json
 } from 'http-client';
+import { serialize } from '../serializer';
 
 export default function httpClient(options = {}) {
   if (!canActivate(options)) {
@@ -19,13 +22,24 @@ export default function httpClient(options = {}) {
     ...options
   };
 
-  const request = createFetch(
+  const stack = createStack(
     base(options.base),
-    method(options.method),
+    method(mapAction(options)),
     header('Content-Type', options.type),
     header('Accept', options.type),
     parseJSON(options.field)
   ); 
+
+  let request;
+  if (options.payload) {
+    options.payload = serialize(options.payload);
+    request = createFetch(
+      stack,
+      json(options.payload)
+    );
+  } else {
+    request = createFetch(stack);
+  }
 
   return (locals) => {
     const { endpoint } = locals;
@@ -36,6 +50,27 @@ export default function httpClient(options = {}) {
 export function pick(field = 'jsonData') {
   return response => response[field];
 } 
+
+export function mapAction(method) {
+  if (typeof method === 'object') {
+    method = method.method || 'show';
+  }
+
+  switch (method) {
+    case 'create':
+      return 'post';
+    case 'update':
+      return 'patch';
+    case 'delete':
+      return 'delete';
+    case 'remove':
+      return 'delete';
+    case 'destroy':
+      return 'delete';
+    default:
+      return 'get';
+  }
+}
 
 export function canActivate(options = {}) {
   if (options.base) { return true; }
