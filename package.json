@@ -10,7 +10,9 @@
     "clean": "trash lib/",
     "prebuild:client": "mkdirp lib/",
     "build:server": "babel src/ --out-dir lib/",
-    "build:client": "browserify src/index.js -o lib/browser.js -t [ babelify --presets [ es2015 stage-2 ] ]"
+    "build:client": "browserify src/index.js -o lib/browser.js -t [ babelify --presets [ es2015 stage-2 ] ]",
+    "prepublish": "npm run build:server && npm run build:client",
+    "postinstall": "npm run build:server && npm run build:client"
   },
   "repository": {
     "type": "git",
