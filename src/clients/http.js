@@ -4,6 +4,7 @@ import {
   base,
   method,
   header,
+  query,
   parseJSON,
   json
 } from 'http-client';
@@ -19,6 +20,8 @@ export default function httpClient(options = {}) {
     type: 'application/vnd.api+json',
     field: 'jsonData',
     endpoint: '/',
+    payload: {},
+    query: {},
     ...options
   };
 
@@ -27,20 +30,13 @@ export default function httpClient(options = {}) {
     method(mapAction(options)),
     header('Content-Type', options.type),
     header('Accept', options.type),
+    json(options.payload),
+    query(options.query),
     parseJSON(options.field)
-  ); 
-
-  let request;
-  if (options.payload) {
-    options.payload = serialize(options.payload);
-    request = createFetch(
-      stack,
-      json(options.payload)
-    );
-  } else {
-    request = createFetch(stack);
-  }
-
+  );
+  
+  const request = createFetch(stack);
+  
   return (locals) => {
     const { endpoint } = locals;
     return request(endpoint).then(pick(options.field));

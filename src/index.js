@@ -7,17 +7,15 @@ import { deserialize } from './serializer';
 
 export function setup(options = {}) {
   options = {
-    clients: [],
+    clients: {
+      http: {
+        callback: httpClient,
+        canActivate: canActivate
+      }
+    },
     ...options
   };
 
-  if (!options.clients.length) {
-    options.clients.push({
-      key: 'http',
-      callback: httpClient,
-      canActivate: canActivate
-    });
-  }
   const { clients, ...globs } = options;
   const store = configureStore(globs);
   
@@ -39,7 +37,7 @@ export function setup(options = {}) {
     });
   }
 
-  function sync(req, locals = {}) {
+  function sync(req = {}, locals = {}) {
     locals = {
       client: 'http',
       raw: false,
@@ -47,11 +45,17 @@ export function setup(options = {}) {
       ...locals
     };
 
-    const client   = find(clients, { key: locals.client });
+    const client = options.clients[locals.client] || undefined;
     const dispatch = client.callback({ ...locals, ...req });
 
     const chain = (...args) => {
       return deserialize(...args).then(map).then(render);
+    }
+
+    if (!client) {
+      return Promise.reject(
+        new Error('No Client is defined with that name.')
+      );
     }
 
     if (locals.raw) {
