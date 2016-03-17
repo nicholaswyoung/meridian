@@ -92,3 +92,11 @@ test('sync() with delete', async t => {
     method: 'delete'
   });
 });
+
+test('sync() with nonexistent Client', async t => {
+  try {
+    await client.sync({ client: 'xxxx' });
+  } catch (err) {
+    t.not(err, undefined);
+  }
+});
