@@ -93,6 +93,13 @@ test('sync() with delete', async t => {
   });
 });
 
+test('sync() with query params', async t => {
+  const result = await client.sync({
+    endpoint: '/query',
+    query: { msg: 'hello' }
+  });
+});
+
 test('sync() with nonexistent Client', async t => {
   try {
     await client.sync({ client: 'xxxx' });

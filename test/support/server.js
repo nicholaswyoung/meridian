@@ -31,4 +31,8 @@ app.delete('/products/:id', (req, res) => {
   res.send({ meta: { method: 'delete' } });
 });
 
+app.get('/query', (req, res) => {
+  res.send({ meta: { query: req.query || {} } });
+});
+
 export default app;
