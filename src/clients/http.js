@@ -20,8 +20,6 @@ export default function httpClient(options = {}) {
     type: 'application/vnd.api+json',
     field: 'jsonData',
     endpoint: '/',
-    payload: {},
-    query: {},
     ...options
   };
 
@@ -30,13 +28,19 @@ export default function httpClient(options = {}) {
     method(mapAction(options)),
     header('Content-Type', options.type),
     header('Accept', options.type),
-    json(options.payload),
-    query(options.query),
     parseJSON(options.field)
   );
-  
-  const request = createFetch(stack);
-  
+
+  let request;
+
+  if (options.query) {
+    request = createFetch(stack, query(options.query));
+  } else if (options.payload) {
+    request = createFetch(stack, json(options.payload));
+  } else {
+    request = createFetch(stack);
+  }
+
   return (locals) => {
     const { endpoint } = locals;
     return request(endpoint).then(pick(options.field));
