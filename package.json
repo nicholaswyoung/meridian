@@ -10,8 +10,7 @@
     "prebuild:client": "mkdirp lib/",
     "build:server": "babel src/ --out-dir lib/",
     "build:client": "browserify src/index.js --standalone meridian -o lib/browser.js -t [ babelify ]",
-    "prepublish": "npm run build:server && npm run build:client",
-    "postinstall": "npm run build:server && npm run build:client"
+    "prepublish": "npm run build:server && npm run build:client"
   },
   "repository": {
     "type": "git",
