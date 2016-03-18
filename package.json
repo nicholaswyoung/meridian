@@ -1,6 +1,6 @@
 {
   "name": "meridian",
-  "version": "1.0.0-rc.6",
+  "version": "1.0.0",
   "description": "An opinionated, high-level networking and storage toolkit for JavaScript applications.",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
