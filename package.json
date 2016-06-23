@@ -39,7 +39,7 @@
     "lodash.remove": "^4.2.0",
     "lodash.set": "^4.0.0",
     "memdown": "^1.1.2",
-    "pluralize": "^1.2.1",
+    "pluralize": "^3.0.0",
     "tv4": "^1.2.7"
   },
   "devDependencies": {
