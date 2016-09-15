@@ -1,5 +1,7 @@
 # Meridian
 
+**As of June 2015, GraphQL is our new standard. Meridian is deprecated. Use at your own risk, or fork.**
+
 ![CI Status](https://api.travis-ci.org/UntilNow/meridian.svg?branch=master)
 
 An opinionated, high-level networking and storage toolkit for JavaScript applications.
